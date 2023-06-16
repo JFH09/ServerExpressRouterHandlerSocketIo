@@ -32,6 +32,41 @@ router.get("/products/:idProducto", async (req, resp) => {
   resp.render("home", { productos });
 });
 
+router.post("/products", async (req, resp) => {
+  const { title, description, price, thumbnail, code, stock } = req.body;
+  console.log(req.body);
+  let product = await productManager.addProduct(
+    title,
+    description,
+    price,
+    thumbnail,
+    code,
+    stock
+  );
+
+  //resp(product);
+  resp.status(201).json(product);
+});
+router.put("/products/:id", async (req, resp) => {
+  const { id } = req.params;
+  const productId = id;
+  console.log(productId);
+  const { title, description, price, thumbnail, code, stock } = req.body;
+  const productEdit = { title, description, price, thumbnail, code, stock };
+  const product = await productManager.updateProductByIdAndObject(
+    productId,
+    productEdit
+  );
+  resp.status(201).json(product);
+});
+
+router.delete("/products/:id", (req, resp) => {
+  const { id } = req.params;
+
+  const product = productManager.deleteProductById(id);
+
+  resp.status(200).json(product);
+});
 router.get("/realtimeproducts", async (req, resp) => {
   const productos = await productManager.getProducts();
   console.log(productos);
