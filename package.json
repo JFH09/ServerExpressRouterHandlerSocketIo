@@ -1,0 +1,27 @@
+{
+  "name": "servidor-express-router_handler-_socketio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JFH09/ServerExpressRouterHandlerSocketIo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JFH09/ServerExpressRouterHandlerSocketIo/issues"
+  },
+  "homepage": "https://github.com/JFH09/ServerExpressRouterHandlerSocketIo#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-handlebars": "^7.0.7",
+    "socket.io": "^4.6.2"
+  }
+}

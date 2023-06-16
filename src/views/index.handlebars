@@ -1,0 +1,16 @@
+<div>
+    <h1>Hola, {{user.name}}, que gusto verte!!! tu perfil es de : {{user.role}}</h1>
+    {{#if isAdmin}}
+        {{#each food}}
+            <div>
+                <p>{{this.name}}</p>
+                <p>{{this.price}}</p>
+            </div>
+        {{/each}}
+    {{else}}
+        <p>No tienes permisos para ver la lista de alimentos tu perfil es de : {{user.role}}</p>
+    {{/if}}
+<!--    Todo Listo para trabajar con websockets!!!-->
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/index.js"></script>

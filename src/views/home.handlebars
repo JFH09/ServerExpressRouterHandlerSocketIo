@@ -1,0 +1,16 @@
+<div>
+    <h1>Los productos almacenados son:</h1>
+    {{#each productos }}
+        <div>
+            <div>title: {{this.title}}</div>
+            <div>description:{{this.description}}</div>
+            <div>price:{{this.price}}</div>
+            <div>thumbnail:{{this.thumbnail}}</div>
+            <div>code:{{this.code}}</div>
+            <div>stock:{{this.stock}}</div>
+            <div>id:{{this.id}}</div>
+        </div>
+        <br>
+    {{/each}}
+    
+</div>
