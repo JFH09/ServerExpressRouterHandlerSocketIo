@@ -1,16 +1,37 @@
-<div>
-    <h1>Los productos almacenados son:</h1>
-    {{#each productos }}
-        <div>
-            <div>title: {{this.title}}</div>
-            <div>description:{{this.description}}</div>
-            <div>price:{{this.price}}</div>
-            <div>thumbnail:{{this.thumbnail}}</div>
-            <div>code:{{this.code}}</div>
-            <div>stock:{{this.stock}}</div>
-            <div>id:{{this.id}}</div>
+<div class="container">
+        <h1>Los productos almacenados son:</h1>
+
+    <div id="listaProductos" class="row" style="justify-content: center;" >
+         {{#each productos }}
+            <div class="card col-3 mb-2" style="margin:3px; width:49%; " >
+        <div class="row ">
+            <div class="col-md-4 ">
+                <img src="https://cdn-icons-png.flaticon.com/512/2203/2203183.png"
+                    class="img-fluid rounded-start" style="padding-top: 15px; width:93%" alt="imagen-producto">
+                <div class="">
+                    <p class="card-text">Thumbnail: {{this.thumbnail}} </p>   
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body cardEstudiante">
+                    <h5 class="card-title" > Title:  {{this.title}}</h5>
+                    <h5 class="card-text"> Id: {{this.id}} </h5>
+                    <p class="card-text">Price: {{this.price}}</p>
+                    <p class="card-text">Code: {{this.code}}  </p>
+                    <p class="card-text">Stock: {{this.stock}} </p>
+
+                    <p class="card-text">Description: <br>  {{this.description}}</p>
+
+                    {{!-- <button class="btn btn-primary m-1"  onclick="editarthis(${this.id})">Editar</button>
+                    <button class="btn btn-danger m-1" onclick="eliminarthis(${this.id})">Eliminar</button> --}}
+                </div>
+            </div>
         </div>
+    </div>
         <br>
     {{/each}}
-    
+    </div>
 </div>
+
+
+
