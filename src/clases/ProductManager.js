@@ -47,8 +47,8 @@ export default class ProductManager {
       } else {
         console.log("Agregando Producto...");
         let id = 0;
-        let tamanoLista = this.products.length;
-        id = tamanoLista + 1;
+        let ultimoElemento = this.products[this.products.length - 1];
+        id = ultimoElemento.id + 1;
         this.product.id = id;
         this.products.push(this.product);
         let data = JSON.stringify(this.products);
@@ -110,9 +110,21 @@ export default class ProductManager {
   }
 
   deleteProductById(id) {
+    console.log("eliminar por id");
     let contenidoArchivo = this.fs.readFileSync(this.path, "utf-8");
     this.products = JSON.parse(contenidoArchivo);
+    // let productToDelete = this.products;
+    // productToDelete = productToDelete.filter((prod) => prod.id == id);
+    // console.log("Product to delete", productToDelete);
+    // console.log("solo id prdDelete", productToDelete[0].id);
     this.products = this.products.filter((prod) => prod.id != id);
+    // this.products[this.products.indexOf(productToDelete[0])] = {
+    //   id: productToDelete[0].id,
+    // };
+    // console.log("nuevo products->", this.products);
+    //this.products = this.products.push(productToDelete.id);
+    console.log(this.products);
+    this.products = this.products.sort((x, y) => x.id - y.id);
     let data = JSON.stringify(this.products);
     this.fs.writeFileSync(this.path, data, (err) => {
       if (err) return console.log("ERROR", err);

@@ -1,17 +1,12 @@
-<div>
-    <h1>Lista de productos en tiempo real:</h1>
-        {{#each productos }}
-        <div>
-            <div>title: {{this.title}}</div>
-            <div>description:{{this.description}}</div>
-            <div>price:{{this.price}}</div>
-            <div>thumbnail:{{this.thumbnail}}</div>
-            <div>code:{{this.code}}</div>
-            <div>stock:{{this.stock}}</div>
-            <div>id:{{this.id}}</div>
-        </div>
-        <br>
-    {{/each}}
+<div class="container">
+    <div class="row">
+        <h1>Lista de productos en tiempo real:</h1>
+        <button class="btn btn-success m-1" onclick="agregarProducto()">Agregar Producto</button>
+    </div>
+    <div id="listaProductos" class="row" style="justify-content: center;" >
+
+    </div>
 </div>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/realTimeProducts.js"></script>

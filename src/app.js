@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 const httpServer = app.listen(8080, () => console.log("Listen on PORT 8080"));
 //const server = app.listen(8080, () => console.log("Escuchando por 8080"));
 
-const socketServer = new Server(httpServer);
+const io = new Server(httpServer);
 
 app.engine("handlebars", handlebars.engine());
 
@@ -26,25 +26,85 @@ console.log(__dirname);
 app.use("/home", productsRoutes);
 app.use("/", viewsRouter);
 //app.use("/home", productsRoutes);
-
-socketServer.on("connection", (socket) => {
+let listaProductos = [
+  {
+    title: "agua",
+    description: "bebida",
+    price: 2.66,
+    thumbnail: "ruta2.png",
+    code: "bebidas#543",
+    stock: 33,
+    id: 2,
+  },
+  {
+    title: "papas",
+    description: "paquetes",
+    price: 888.2,
+    thumbnail: "rutaPAPAS.png",
+    code: "paquetes#788",
+    stock: 333,
+    id: 3,
+  },
+  {
+    title: "jabon",
+    description: "aseo",
+    price: 80.9,
+    thumbnail: "rutaJabon.png",
+    code: "aseo#009",
+    stock: 41,
+    id: 5,
+  },
+  {
+    title: "chocolatinas",
+    description: "dulces",
+    price: 2,
+    thumbnail: "rutaChoco.png",
+    code: "chocho#44",
+    stock: 55,
+    id: 11,
+  },
+  {
+    title: "manzana",
+    description: "fruta",
+    price: 88.09,
+    thumbnail: "rutaManzana.png",
+    code: "frutas#111",
+    stock: 54,
+    id: 12,
+  },
+];
+io.on("connection", (socket) => {
   //cuando escuche que una vista - cliente se conecte...
   console.log("Nuevo Cliente Conectado...");
+  io.emit("listaProductos", listaProductos);
 
-  socket.on("message", (data) => {
-    //Cuando el socket que se conecto envie una peticion con ID -> mensaje... (cliente - servidor)
-    console.log(data);
+  socket.on("productoAgregado", (product) => {
+    listaProductos.push(product);
+    io.emit("listaProductos", listaProductos);
   });
 
-  socket.on("message1", (data) => {
-    //Cuando el socket que se conecto envie una peticion con ID -> mensaje... (cliente - servidor)
-    console.log(data);
+  socket.on("eliminarProducto", (idEliminar) => {
+    console.log("entro a eliminar");
+    listaProductos = listaProductos.filter((e) => e.id != idEliminar);
+    //console.log("entro a eliminar", listaProductos);
+    io.emit("listaProductos", listaProductos);
   });
-  //para enviar una peticion desde el servidor - cliente...
-  socket.emit(
-    "nombre_evento_socket_individual",
-    "Este mensaje solo lo recibe el socket conectado..."
-  );
 
-  socket.emit("lista_productos", "Enviando una lista de productos...");
+  socket.on("buscarProductoEdit", (idProduct) => {
+    console.log("se va a editar -> ", idProduct);
+    let productToEdit = listaProductos.find((e) => e.id == idProduct);
+    //console.log(productToEdit);
+    io.emit("productToEdit", productToEdit);
+  });
+
+  socket.on("productoEditado", (product) => {
+    listaProductos;
+    console.log("entro a producto editado...", product);
+    //console.log(product.id);
+    let posicion = listaProductos.findIndex((e) => e.id == product.id);
+    // console.log(posicion);
+    listaProductos[posicion] = product;
+    //console.log("listaProductos .,,", listaProductos);
+    io.emit("listaProductos", listaProductos);
+  });
 });

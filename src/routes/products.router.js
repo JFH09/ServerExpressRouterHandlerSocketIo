@@ -32,7 +32,7 @@ router.get("/products/:idProducto", async (req, resp) => {
   resp.render("home", { productos });
 });
 
-router.post("/products", async (req, resp) => {
+router.post("/products/post", async (req, resp) => {
   const { title, description, price, thumbnail, code, stock } = req.body;
   console.log(req.body);
   let product = await productManager.addProduct(
@@ -68,9 +68,10 @@ router.delete("/products/:id", (req, resp) => {
   resp.status(200).json(product);
 });
 router.get("/realtimeproducts", async (req, resp) => {
-  const productos = await productManager.getProducts();
-  console.log(productos);
-  resp.render("realTimeProducts", { productos });
+  //const productos = await productManager.getProducts();
+  //console.log(productos);
+  //resp.render("realTimeProducts", { productos });
+  resp.render("realTimeProducts", {});
 });
 
 export default router;
